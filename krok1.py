@@ -31,7 +31,7 @@ def matrix_reduction(original_matrix: np.ndarray) -> (np.ndarray, np.ndarray, in
 
 matrix1 = [
     [inf, 1, 5, 2, 2, 7],
-    [3, inf, 2, 6, 1],
+    [3, inf, 2, 6, 1, 4],
     [1, 2, inf, 2, 9, 5],
     [4, 7, 3, inf, 4, 5],
     [5, 2, 7, 8, inf, 9],
