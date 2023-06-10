@@ -4,7 +4,7 @@ Przydział zadań:
 
 Mateusz Gołąbek: Krok 2, testy i debugowanie
 
-Konrad Flis: Krok 3
+Konrad Flis: Krok 3, main, połączenie kodu
 
 Marysia Jagintowicz: Krok 4, Krok 5
 
