@@ -1,4 +1,5 @@
 import numpy as np
+from copy import deepcopy
 from krok2 import get_edge_max_opt_exl_cost
 
 #Funkcja reduce() z metody węgierskiej, przerobiona dla moich testów
@@ -29,8 +30,8 @@ def reduce(matrix):
 
 def step_3(min_PP, i, j):
 
-    PP_1 = min_PP.reduced_matrix
-    PP_2 = min_PP.reduced_matrix
+    PP_1 = deepcopy(min_PP.reduced_matrix)
+    PP_2 = deepcopy(min_PP.reduced_matrix)
 
     for m in range(len(min_PP.reduced_matrix)):
         PP_1[m][j] = np.inf
@@ -102,7 +103,7 @@ def main():
         kz1 = False
         kz2 = False #TYMCZASOWE, do usunięcia kiedy powstanie funkcja Marysi
 
-        updated_partial_solution = min_PP.partial_solution
+        updated_partial_solution = deepcopy(min_PP.partial_solution)
         updated_partial_solution.append((i, j))
 
         PP_list.append(PP(idx, PP1, lb1, updated_partial_solution, kz1))
@@ -110,11 +111,12 @@ def main():
         PP_list.append(PP(idx, PP2, lb2, min_PP.partial_solution, kz2))
         idx += 1
 
-        #print(PP_list)
+        print(PP_list)
 
         state_of_openness = [elem.kz for elem in PP_list]
         if all(state_of_openness): #Jeśli wszystkie podproblemy zamknięte - koniec
             break
+
 
 
 
