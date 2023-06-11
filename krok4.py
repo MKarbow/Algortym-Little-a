@@ -19,6 +19,28 @@ def kz(lb, v_star=float('inf')):
     return False, v_star
 
 
+def new_kz(lb, pp, path, v_star=float('inf')):
+    # kz1
+    update_v_star = False  # czy v* star musi być zaktualizowane
+    if lb == float('inf'):
+        return True, v_star, update_v_star  # podproblem zamknięty
+
+    # kz2
+    if lb >= v_star:
+        return True, v_star, update_v_star  # podproblem zamknięty
+
+    # kz3
+    # jeśli ma być dodana już ostatnia część rozwiązania
+    if len(path) == len(pp) - 1:
+        # spr czy można zmniejszyć v*
+        if lb < v_star:
+            v_star = lb
+            update_v_star = True
+        return True, v_star, update_v_star
+
+    return False, v_star, update_v_star
+
+
 '''
 każdy problem to: (macierz, lb, current_path)
 
