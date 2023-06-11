@@ -41,15 +41,12 @@ def main():
         lb1, lb2, PP1, PP2 = krok3.step_3(min_PP, i, j)
         print(min_PP.partial_solution)
 
-        # wciąż nie wiem o co tu chodzi
-        kz1, v1 = krok4.kz(lb1, v_star)
-        kz2, v2 = krok4.kz(lb2, v_star)
-        # zamknij te podproblemy z większym LB?
-        if v1 >= v2:
-            kz1 = True
+        # make it make sense
+        kz1, v1, update1 = krok4.new_kz(lb1, PP1, min_PP.partial_solution, v_star)
+        if update1:
             v_star = v1
-        else:
-            kz2 = True
+        kz2, v2, update2 = krok4.new_kz(lb2, PP2, min_PP.partial_solution, v_star)
+        if update2:
             v_star = v2
 
         updated_partial_solution = deepcopy(min_PP.partial_solution)
