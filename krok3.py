@@ -20,10 +20,10 @@ def reduce(matrix):
             for j in range(len(matrix)):
                 matrix[j][i] = matrix[j][i] - min_value
 
-    print('Wynik redukcji: ')
-    for i in range(len(matrix)):
-        print([elem for elem in matrix[i]])
-    print('Dolne ograniczenie: ', low_limit, '\n')
+    #print('Wynik redukcji: ')
+    #for i in range(len(matrix)):
+        #print([elem for elem in matrix[i]])
+    #print('Dolne ograniczenie: ', low_limit, '\n')
 
     return low_limit
 
@@ -45,7 +45,7 @@ def step_3(min_PP, i, j):
             k = j #ostatni element rozwiązania
             PP_1[k][p] = np.inf
         except IndexError: #w pierwszym etapie partial_solution puste - i tak nie będzie cyklu
-            pass
+            PP_1[j][i] = np.inf
 
     low_limit_1 = min_PP.lb + reduce(PP_1)
 
