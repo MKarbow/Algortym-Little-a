@@ -99,10 +99,43 @@ class LittleAlgorithmTest(unittest.TestCase):
         step_3(pp5, i5, j5)
 
     def test_step4(self):
-        pass
+        kz1, v1 = kz(self.lb1, Inf)
+        kz2, v2 = kz(self.lb2, Inf)
+        self.assertFalse(kz1)
+        self.assertFalse(kz2)
+        self.assertEqual(v1, self.lb1)
+        self.assertEqual(v2, self.lb2)
 
-    def test_step5(self):
-        pass
+        lb1 = reduce(matrix1)
+        i1, j1 = get_edge_max_opt_exl_cost(matrix1)
+        pp1 = PP(1, matrix1, lb1, [], False)
+        lb1, lb2, _, _ = step_3(pp1, i1, j1)
+        kz(lb1, Inf)
+        kz(lb2, Inf)
+        lb2 = reduce(matrix2)
+        i2, j2 = get_edge_max_opt_exl_cost(matrix2)
+        pp2 = PP(2, matrix2, lb2, [], False)
+        lb1, lb2, _, _ = step_3(pp2, i2, j2)
+        kz(lb1, Inf)
+        kz(lb2, Inf)
+        lb3 = reduce(matrix3)
+        i3, j3 = get_edge_max_opt_exl_cost(matrix3)
+        pp3 = PP(3, matrix3, lb3, [], False)
+        lb1, lb2, _, _ = step_3(pp3, i3, j3)
+        kz(lb1, Inf)
+        kz(lb2, Inf)
+        lb4 = reduce(matrix4)
+        i4, j4 = get_edge_max_opt_exl_cost(matrix4)
+        pp4 = PP(4, matrix4, lb4, [], False)
+        lb1, lb2, _, _ = step_3(pp4, i4, j4)
+        kz(lb1, Inf)
+        kz(lb2, Inf)
+        lb5 = reduce(matrix5)
+        i5, j5 = get_edge_max_opt_exl_cost(matrix5)
+        pp5 = PP(2, matrix5, lb5, [], False)
+        lb1, lb2, _, _ = step_3(pp5, i5, j5)
+        kz(lb1, Inf)
+        kz(lb2, Inf)
 
 
 if __name__ == '__main__':
