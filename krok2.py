@@ -12,7 +12,7 @@ def get_edge_max_opt_exl_cost(mtx: List[List[int]]) -> Tuple[int, int]:
     """
     i_star = -1  # indeks i* wynikowej krawędzi
     j_star = -1  # indeks j* wynikowej krawędzi
-    d_max = 0  # największy koszt wyłączenia odcinka
+    d_max = -1  # największy koszt wyłączenia odcinka
     for i, row in enumerate(mtx):
         for j, val in enumerate(row):
             if val == 0:  # dla każdej wartości równej 0
