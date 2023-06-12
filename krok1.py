@@ -4,28 +4,24 @@ import copy
 
 inf = float('inf')
 
-def matrix_reduction(original_matrix: np.ndarray) -> (np.ndarray, np.ndarray, int):
+def reduce(matrix):
+    low_limit = 0
+    for elem in matrix:  # lists of rows
+        min_value = min(elem)
+        if min_value != np.inf:
+            low_limit += min_value
+            for i in range(len(elem)):
+                elem[i] = elem[i] - min_value
 
-    lb = 0
-    buffor_matrix = copy.deepcopy(original_matrix)
+    for i in range(len(matrix)):  # list of columns
+        col = [elem[i] for elem in matrix]
+        min_value = min(col)
+        if min_value != np.inf:
+            low_limit += min_value
+            for j in range(len(matrix)):
+                matrix[j][i] = matrix[j][i] - min_value
 
-    for row in buffor_matrix:
-        if not np.any(row == 0):
-            minimum = np.min(row)
-            lb += minimum
-            row -= minimum
-
-    buffor_matrix = buffor_matrix.T
-
-    for row in buffor_matrix:
-        if not np.any(row == 0):
-            minimum = np.min(row)
-            lb += minimum
-            row -= minimum
-
-    buffor_matrix = buffor_matrix.T
-
-    return buffor_matrix, lb
+    return low_limit
 
 # Macierze testowe
 

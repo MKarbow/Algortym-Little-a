@@ -1,25 +1,6 @@
 # kryteria zamykania podproblemów
 
-
-def kz(lb, v_star=float('inf')):
-
-    # kz1
-    if lb == float('inf'):
-        return True, v_star  # podproblem zamknięty
-
-    # kz2
-    if lb >= v_star:
-        return True, v_star  # podproblem zamknięty
-
-    # kz3
-    if lb < v_star:
-        v_star = lb
-        return False, v_star
-
-    return False, v_star
-
-
-def new_kz(lb, pp, path, v_star=float('inf')):
+def kz(lb, pp, path, v_star=float('inf')):
     # kz1
     update_v_star = False  # czy v* star musi być zaktualizowane
     if lb == float('inf'):

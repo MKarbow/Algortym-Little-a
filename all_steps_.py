@@ -8,9 +8,15 @@ import krok4
 
 Inf = float('inf')
 
-
 def main():
 
+    matrix = [
+        [Inf, 5, 4, 6, 6],
+        [8, Inf, 5, 3, 4],
+        [4, 3, Inf, 3, 1],
+        [8, 2, 5, Inf, 6],
+        [2, 2, 7, 0, Inf]
+    ]
 
     matrix = [
         [Inf, 1, 5, 2, 2, 7, 5],
@@ -21,19 +27,10 @@ def main():
         [8, 6, 4, 3, 2, Inf, 7],
         [5, 9, 6, 4, 2, 8, Inf]
     ]
-
-    matrix = [
-        [Inf, 5, 4, 6, 6],
-        [8, Inf, 5, 3, 4],
-        [4, 3, Inf, 3, 1],
-        [8, 2, 5, Inf, 6],
-        [2, 2, 7, 0, Inf]
-    ]
-
     # Lista podproblemów PP: każdy podproblem to obiekt klasy PP
     PP_list = []
 
-    low_limit = krok3.reduce(matrix)
+    low_limit = krok1.reduce(matrix)
 
     idx = 0
 
@@ -51,13 +48,11 @@ def main():
         i, j = krok2.get_edge_max_opt_exl_cost(min_PP.reduced_matrix)  # W pierwszym wywołaniu nic nie zmienia, później tak
         # min_PP.reduced_matrix[j][i] = Inf
         lb1, lb2, PP1, PP2 = krok3.step_3(min_PP, i, j)
-        print(min_PP.partial_solution)
 
-        # make it make sense
-        kz1, v1, update1 = krok4.new_kz(lb1, PP1, min_PP.partial_solution, v_star)
+        kz1, v1, update1 = krok4.kz(lb1, PP1, min_PP.partial_solution, v_star)
         if update1:
             v_star = v1
-        kz2, v2, update2 = krok4.new_kz(lb2, PP2, min_PP.partial_solution, v_star)
+        kz2, v2, update2 = krok4.kz(lb2, PP2, min_PP.partial_solution, v_star)
         if update2:
             v_star = v2
 
@@ -75,7 +70,20 @@ def main():
         if all(state_of_openness):  # Jeśli wszystkie podproblemy zamknięte - koniec
             break
 
+    solution = [elem for elem in PP_list if len(elem.partial_solution) == len(matrix)]
     print(PP_list)
+    print('\n\n\n\nROZWIĄZANIE: ')
+
+    for elem in solution:
+
+        path = []
+        path.append(elem.partial_solution[0][0])
+        path.append(elem.partial_solution[0][1])
+        while len(path) != len(matrix) + 1:
+            for el in elem.partial_solution:
+                if el[0] == path[-1]:
+                    path.append(el[1])
+        print(path)
 
 
 if __name__ == '__main__':
