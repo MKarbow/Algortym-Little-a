@@ -4,7 +4,7 @@ Przydział zadań:
 
 Mateusz Gołąbek: Krok 2, testy i debugowanie
 
-Konrad Flis: Krok 3, main, połączenie kodu
+Konrad Flis: Krok 3, main, połączenie kodu, debugowanie i testowanie
 
 Marysia Jagintowicz: Krok 4, Krok 5, debugowanie, wyszukiwanie cykli w grafie (częściowo)
 
