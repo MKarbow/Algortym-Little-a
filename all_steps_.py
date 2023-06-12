@@ -27,6 +27,7 @@ def main():
         [8, 6, 4, 3, 2, Inf, 7],
         [5, 9, 6, 4, 2, 8, Inf]
     ]
+
     # Lista podproblemów PP: każdy podproblem to obiekt klasy PP
     PP_list = []
 
@@ -34,6 +35,7 @@ def main():
 
     idx = 0
 
+    # dodaj problem główny do listy
     PP_list.append(krok3.PP(idx, matrix, low_limit, [], False))
 
     idx += 1
@@ -42,13 +44,17 @@ def main():
 
     while PP_list:
 
-        filter = [elem for elem in PP_list if elem.kz is False]  # pomocnicza lista do znalezienia niezamkniętych PP
-        min_PP = min(filter, key=lambda x: x.lb)  # Element o najniższym lb i niezamknięty
+        # pomocnicza lista do znalezienia niezamkniętych PP
+        filter = [elem for elem in PP_list if elem.kz is False]
+        # element o najniższym lb i niezamknięty
+        min_PP = min(filter, key=lambda x: x.lb)
         PP_list.remove(min_PP)
-        i, j = krok2.get_edge_max_opt_exl_cost(min_PP.reduced_matrix)  # W pierwszym wywołaniu nic nie zmienia, później tak
-        # min_PP.reduced_matrix[j][i] = Inf
+        # krok 2:
+        i, j = krok2.get_edge_max_opt_exl_cost(min_PP.reduced_matrix)
+        # krok 3:
         lb1, lb2, PP1, PP2 = krok3.step_3(min_PP, i, j)
 
+        # krok 4:
         kz1, v1, update1 = krok4.kz(lb1, PP1, min_PP.partial_solution, v_star)
         if update1:
             v_star = v1
@@ -56,6 +62,7 @@ def main():
         if update2:
             v_star = v2
 
+        # dodanie do ścieżki pierwszego podproblemu (i, j)
         updated_partial_solution = deepcopy(min_PP.partial_solution)
         updated_partial_solution.append((i, j))
 
@@ -64,18 +71,19 @@ def main():
         PP_list.append(krok3.PP(idx, PP2, lb2, min_PP.partial_solution, kz2))
         idx += 1
 
-        # print(PP_list)
-
+        # jeśli wszystkie podproblemy zamknięte (True) - koniec
         state_of_openness = [elem.kz for elem in PP_list]
-        if all(state_of_openness):  # Jeśli wszystkie podproblemy zamknięte - koniec
+        if all(state_of_openness):
             break
 
     solution = [elem for elem in PP_list if len(elem.partial_solution) == len(matrix)]
     print(PP_list)
     print('\n\n\n\nROZWIĄZANIE: ')
-
+    print(solution)
+    # ścieżki na podstawie rozwiazań:
     for elem in solution:
-
+        # arbitralne dodanie pierwszych 2 wierzchołków
+        # następnie szukana jest krawędź zaczynająca się dotychczasowym końcem ścieżki
         path = []
         path.append(elem.partial_solution[0][0])
         path.append(elem.partial_solution[0][1])
