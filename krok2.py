@@ -32,6 +32,7 @@ def get_edge_max_opt_exl_cost(mtx: List[List[int]]) -> Tuple[int, int]:
                     d_max = d
                     i_star = i
                     j_star = j
+
     return i_star, j_star
 
 
